@@ -11,19 +11,16 @@
         padding: 0;
         margin: 0;
       }
-
       #layer_selector {
         position: absolute;
         top: 20px;
         right: 20px;
         padding: 0;
       }
-
       #layer_selector ul {
         padding: 0; margin: 0;
         list-style-type: none;
       }
-
       #layer_selector li {
         border-bottom: 1px solid #999;
         padding: 15px 30px;
@@ -32,18 +29,16 @@
         color: #444;
         cursor: auto;
       }
-
       #layer_selector li:hover {
         background-color: #F0F0F0;
         cursor: pointer;
       }
-
       #layer_selector li.selected {
         background-color: #EEE;
       }
     </style>
 
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   </head>
   <body>
     <div id="map"></div>
@@ -58,35 +53,29 @@
     </div>
 
     <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.11/cartodb.js"></script>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
 
     <script>
       // create layer selector
       function createSelector(layer) {
         var sql = new cartodb.SQL({ user: 'documentation' });
-
         var $options = $('#layer_selector li');
         $options.click(function(e) {
           // get the area of the selected layer
           var $li = $(e.target);
           var area = $li.attr('data');
-
           // deselect all and select the clicked one
           $options.removeClass('selected');
           $li.addClass('selected');
-
           // create query based on data from the layer
           var query = "select * from european_countries_e";
-
           if(area !== 'all') {
             query = "select * from european_countries_e where area > " + area;
           }
-
           // change the query in the layer to update the map
           layer.setSQL(query);
         });
       }
-
       function main() {
         cartodb.createVis('map', 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json', {
           tiles_loader: true,
@@ -103,7 +92,6 @@
           console.log(err);
         });
       }
-
       window.onload = main;
     </script>
   </body>
